@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Disable Unneeded Ubuntu FileSystems to Reduce Potential Attacking Surface
+
+# Instruct modprobe to Force Inactive Modules to Always Fail Loading
+# Create a File That Will be Used for Blacklisted Filesystems
+touch /etc/modprobe.d/blacklisted_filesystems.conf
+# Add Following Lines for the FileSystems Respectively
+echo 'install cramfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+echo 'install freevxfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+echo 'install hfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+echo 'install hfsplus /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+echo 'install jffs2 /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+echo 'install udf /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
+
+# Execute the Following Command to Unload the Module Respectively
+rmmod cramfs
+rmmod freevxfs
+rmmod hfs
+rmmod hfsplus
+rmmod jffs2
+rmmod udf
