@@ -1,0 +1,24 @@
+# Update and Upgrade Ubuntu
+
+# Update
+# The sudo apt-get update Command is Used to Download Package Information from all Configured Sources.
+
+# Upgrade
+# New packages will be installed if required to satisfy dependencies, but existing packages will never be removed.
+
+# Clean
+# Cleans the APT Cache
+
+# Remove
+# Remove Old Kernels (If No Longer Required)
+# purge Switch Removes all Configurations Files Too
+
+apt-get update && apt-get full-upgrade
+
+apt-get clean
+
+apt-get autoremove --purge
+
+# Information - Sources
+# https://www.cyberciti.biz/faq/what-does-sudo-apt-get-update-command-do-on-ubuntu-debian/
+# https://www.omgubuntu.co.uk/2016/08/5-ways-free-up-space-on-ubuntu
