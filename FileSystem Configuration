@@ -23,3 +23,8 @@ rmmod udf
 
 # Configure /tmp Directory
 echo 'tmpfs /tmp  tmpfs defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
+
+# Configure /dev/shm Directory
+echo 'tmpfs /dev/shm defaults,noexec,nodev,nosuid,size=2G 0 0' >> /etc/fstab
+
+# 
