@@ -20,3 +20,6 @@ rmmod hfs
 rmmod hfsplus
 rmmod jffs2
 rmmod udf
+
+# Configure /tmp Directory
+echo 'tmpfs /tmp  tmpfs defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
