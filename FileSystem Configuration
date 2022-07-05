@@ -36,8 +36,13 @@ fi
 
 # Disable USB Automounting
 # Create a File That Will be Used to Disable USB Storage
+if
 touch /etc/modprobe.d/usb_storage.conf
 # Add Following Line for USB Storage Disabling
 echo 'install usb-storage /bin/true' >> /etc/modprobe.d/usb_storage.conf
 # Execute the Following Command to Unload the Module
-rmmod usb-storage
+rmmod usb-storage; then
+  echo 'USB Storage Disabled'
+else
+  echo 'USB Storage was Not Configured. No Action Necessary.'
+fi
