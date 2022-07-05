@@ -33,3 +33,11 @@ if systemctl --now disable autofs; then
 else
   echo 'Autofs wan not installed.'
 fi
+
+# Disable USB Automounting
+# Create a File That Will be Used to Disable USB Storage
+touch /etc/modprobe.d/usb_storage.conf
+# Add Following Line for USB Storage Disabling
+echo 'install usb-storage /bin/true' >> /etc/modprobe.d/usb_storage.conf
+# Execute the Following Command to Unload the Module
+rmmod usb-storage
