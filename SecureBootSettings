@@ -8,20 +8,22 @@ sed -ri 's/chmod\s+[0-7][0-7][0-7]\s+\$\{grub_cfg\}\.new/chmod 400 ${grub_cfg}.n
  sed -ri 's/ && ! grep "\^password" \$\{grub_cfg\}.new >\/dev\/null//' /usr/sbin/grub-mkconfig
  
 # Ensure Bootloader Password is set
+echo '==================================================='
 echo 'This Script Will Create Credentials for BootLoader.'
 echo 'Please Provide and Write Down a Password That Will be Used for this Purpose.'
 # Files passfile and unfile are Mandatory Because They Contain the Credentials.
-echo 'The Script Will Use Username: bootloader1'
+echo '==================================================='
 # You Can Use a Different Username Before Running the Script
 echo 'The System Will Need to Reboot After Completion of Procedure'
+echo '==================================================='
 newpass=$(cat passfile | grub-mkpasswd-pbkdf2 | awk '/grub.pbkdf/{print$NF}')
 newun=$(cat unfile)
 newunline="set superusers=\"$newun\""
 newpassline="password_pbkdf2 $newun $newpass"
 touch /etc/grub.d/boot
-echo 'cat <<OEF' >> /etc/grub.d/boot
-echo $newunline >> /etc/grub.d/boot
-echo $newpassline >> /etc/grub.d/boot
-echo 'EOF' >> /etc/grub.d/boot
+echo "cat <<OEF" >> /etc/grub.d/10_linux
+echo $newunline >> /etc/grub.d/10_linux
+echo $newpassline >> /etc/grub.d/10_linux
+echo "EOF" >> /etc/grub.d/10_linux
 update-grub
 init 6
