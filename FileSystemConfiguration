@@ -31,7 +31,7 @@ echo 'tmpfs /dev/shm defaults,noexec,nodev,nosuid,size=2G 0 0' >> /etc/fstab
 if systemctl --now disable autofs; then
   echo 'Autofs Disabled...'
 else
-  echo 'Autofs wan not installed.'
+  echo 'Autofs was not installed.'
 fi
 
 # Disable USB Automounting
