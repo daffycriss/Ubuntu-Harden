@@ -12,21 +12,49 @@ echo ''
 # Instruct modprobe to Force Inactive Modules to Always Fail Loading
 # Create a File That Will be Used for Blacklisted Filesystems
 touch /etc/modprobe.d/blacklisted_filesystems.conf
-# Add Following Lines for the FileSystems Respectively
-echo 'install cramfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
-echo 'install freevxfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
-echo 'install hfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
-echo 'install hfsplus /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
-echo 'install jffs2 /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
-echo 'install udf /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf
 
 # Execute the Following Command to Unload the Module Respectively
-rmmod cramfs
-rmmod freevxfs
-rmmod hfs
-rmmod hfsplus
-rmmod jffs2
-rmmod udf
+if (echo 'install cramfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod cramfs) 2> /dev/null; then
+        echo "cramfs Configured."
+else
+        echo "cramfs was Already Configured. No Action Necessary."
+fi
+
+if (echo 'install freevxfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod freevxfs) 2> /dev/null; then
+        echo "freevxfs Configured."
+else
+        echo "freevxfs was Already Configured. No Action Necessary."
+fi
+
+if (echo 'install hfs /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod hfs) 2> /dev/null; then
+        echo "hfs Configured."
+else
+        echo "hfs was Already Configured. No Action Necessary."
+fi
+
+if (echo 'install hfsplus /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod hfsplus) 2> /dev/null; then
+        echo "hfsplus Configured."
+else
+        echo "hfsplus was Already Configured. No Action Necessary."
+fi
+
+if (echo 'install jffs2 /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod jffs2) 2> /dev/null; then
+        echo "jffs2 Configured."
+else
+        echo "jffs2 was Already Configured. No Action Necessary."
+fi
+
+if (echo 'install udf /bin/true' >> /etc/modprobe.d/blacklisted_filesystems.conf &&
+   rmmod udf) 2> /dev/null; then
+        echo "udf Configured."
+else
+        echo "udf was Already Configured. No Action Necessary."
+fi
 
 # Configure /tmp Directory
 echo 'tmpfs /tmp  tmpfs defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
@@ -35,20 +63,20 @@ echo 'tmpfs /tmp  tmpfs defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/f
 echo 'tmpfs /dev/shm defaults,noexec,nodev,nosuid,size=2G 0 0' >> /etc/fstab
 
 # Disable Automounting
-if systemctl --now disable autofs; then
+if (systemctl --now disable autofs) 2> /dev/null; then
   echo 'Autofs Disabled...'
 else
-  echo 'Autofs was not installed.'
+  echo 'Autofs was not installed. No Action Necessary.'
 fi
 
 # Disable USB Automounting
 # Create a File That Will be Used to Disable USB Storage
 if
-touch /etc/modprobe.d/usb_storage.conf
+(touch /etc/modprobe.d/usb_storage.conf &&
 # Add Following Line for USB Storage Disabling
-echo 'install usb-storage /bin/true' >> /etc/modprobe.d/usb_storage.conf
+echo 'install usb-storage /bin/true' >> /etc/modprobe.d/usb_storage.conf &&
 # Execute the Following Command to Unload the Module
-rmmod usb-storage; then
+rmmod usb-storage) 2> /dev/null; then
   echo 'USB Storage Disabled'
 else
   echo 'USB Storage was Not Configured. No Action Necessary.'
