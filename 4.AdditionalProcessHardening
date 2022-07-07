@@ -1,0 +1,18 @@
+# 4
+
+#!/bin/bash
+
+# Additional Process Hardening
+
+# Ensure Address Space Layout Randomization (ASLR) is Enabled
+echo '============================================================='
+echo "This Script Enables Address Space Layout Randomization (ASLR)"
+echo 'kernel.randomize_va_space = 2' >> /etc/sysctl.conf
+for file in /etc/sysctl.conf; do
+ if [ -f "$file" ]; then
+ grep -Esq "^\s*kernel\.randomize_va_space\s*=\s*([0-1]|[3-9]|[1-9][0-9]+)" "$file" && sed -ri 's/^\s*kernel\.randomize_va_space\s*=\s*([0-1]|[3-9]|[1-9][0-9]+)/# &/gi' "$file"
+ fi
+done
+sysctl -w kernel.randomize_va_space=2
+echo '============================================================='
+echo ''
