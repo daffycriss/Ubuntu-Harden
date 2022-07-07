@@ -1,6 +1,11 @@
 #!/bin/bash
 
 # Disable Unneeded Ubuntu FileSystems to Reduce Potential Attacking Surface
+echo "======================================================================================"
+echo "This Script Disables Unneeded Ubuntu FileSystems to Reduce Potential Attacking Surface"
+echo "and Configures Directories Important Directories"
+echo "======================================================================================"
+echo ''
 
 # Instruct modprobe to Force Inactive Modules to Always Fail Loading
 # Create a File That Will be Used for Blacklisted Filesystems
