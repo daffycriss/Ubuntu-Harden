@@ -19,7 +19,7 @@ newun=$(cat unfile)
 newunline="set superusers=\"$newun\""
 newpassline="password_pbkdf2 $newun $newpass"
 touch /etc/grub.d/boot
-echo 'cat << OEF' >> /etc/grub.d/boot
+echo 'cat <<OEF' >> /etc/grub.d/boot
 echo $newunline >> /etc/grub.d/boot
 echo $newpassline >> /etc/grub.d/boot
 echo 'EOF' >> /etc/grub.d/boot
