@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Update and Upgrade Ubuntu
 
 # Update
@@ -13,11 +15,24 @@
 # Remove Old Kernels (If No Longer Required)
 # purge Switch Removes all Configurations Files Too
 
+echo "============================================="
+echo "Update Repositories and Upgrade Kernel"
+echo "This Might Take a While. Please be Patient..."
 apt-get update && apt-get full-upgrade
+echo "============================================="
+echo ''
 
+echo "============================================="
+echo "Cleaning apt Cache..."
 apt-get clean
+echo "============================================="
+echo ''
 
+echo "============================================="
+echo "Removing Unneeded Packages..."
 apt-get autoremove --purge
+echo "============================================="
+echo ''
 
 # Information - Sources
 # https://www.cyberciti.biz/faq/what-does-sudo-apt-get-update-command-do-on-ubuntu-debian/
