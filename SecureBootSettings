@@ -1,33 +1,34 @@
 #!/bin/bash
 
 # Run the Following Command to Update chmod 444 to chmod 400 in /usr/sbin/grubmkconfig
-echo '==================================================='
+echo '============================================='
 echo "It might take some time. Please be patient..."
+echo '============================================='
 echo ''
 sed -ri 's/chmod\s+[0-7][0-7][0-7]\s+\$\{grub_cfg\}\.new/chmod 400 ${grub_cfg}.new/' /usr/sbin/grub-mkconfig
 
 # Run the Following Command to Remove Check on Password not Being set to Before Running chmod Command
-echo '==================================================='
 sed -ri 's/ && ! grep "\^password" \$\{grub_cfg\}.new >\/dev\/null//' /usr/sbin/grub-mkconfig
 echo ''
  
 # Ensure Bootloader Password is set
-echo '==================================================='
+echo '============================================================================'
 echo 'This Script Will Create Credentials for BootLoader.'
 echo 'Please Provide and Write Down a Password That Will be Used for this Purpose.'
+echo '============================================================================'
 echo ''
 # Files passfile and unfile are Mandatory Because They Contain the Credentials.
-echo '==================================================='
+echo '============================================================'
 # You Can Use a Different Username Before Running the Script
 echo 'The System Will Need to Reboot After Completion of Procedure'
-echo '==================================================='
+echo '============================================================'
 echo ''
 newpass=$(cat passfile | grub-mkpasswd-pbkdf2 | awk '/grub.pbkdf/{print$NF}')
 newun=$(cat unfile)
 newunline="set superusers=\"$newun\""
 newpassline="password_pbkdf2 $newun $newpass"
 touch /etc/grub.d/boot
-echo "cat <<OEF" >> /etc/grub.d/10_linux
+echo "cat << EOF" >> /etc/grub.d/10_linux
 echo $newunline >> /etc/grub.d/10_linux
 echo $newpassline >> /etc/grub.d/10_linux
 echo "EOF" >> /etc/grub.d/10_linux
