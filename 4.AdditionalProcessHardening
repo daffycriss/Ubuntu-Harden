@@ -16,3 +16,14 @@ done
 sysctl -w kernel.randomize_va_space=2
 echo '============================================================='
 echo ''
+
+# Ensure Prelink is not Installed
+echo '============================================'
+echo "This Script Ensures Prelink is not Installed"
+if (prelink -ua && apt -y purge prelink) 2> /dev/null; then
+  echo 'Prelink Disabled Successfully.'
+else
+  echo 'Prelink wan not Installed. No Action Necessary.'
+fi
+echo '============================================'
+echo ''
