@@ -32,7 +32,7 @@ echo ''
 
 echo "============================================="
 echo "Removing Unneeded Packages..."
-apt-get autoremove --purge
+apt-get -y autoremove --purge
 echo "============================================="
 echo ''
 
