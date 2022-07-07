@@ -1,3 +1,5 @@
+# 2
+
 #!/bin/bash
 
 # Run the Following Command to Update chmod 444 to chmod 400 in /usr/sbin/grubmkconfig
