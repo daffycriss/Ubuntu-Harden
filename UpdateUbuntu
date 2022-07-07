@@ -18,7 +18,7 @@
 echo "============================================="
 echo "Update Repositories and Upgrade Kernel"
 echo "This Might Take a While. Please be Patient..."
-apt-get update && apt-get full-upgrade
+apt-get -y update && apt-get -y full-upgrade
 echo "============================================="
 echo ''
 
