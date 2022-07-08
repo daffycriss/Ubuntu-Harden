@@ -2,3 +2,11 @@
 
 #!/bin/bash
 
+# Command Line Warning Banners
+
+# Remove Message of the Day
+echo '==============================================='
+echo 'This Script Removes the Message of the Day File'
+rm /etc/motd
+echo '==============================================='
+echo ''
