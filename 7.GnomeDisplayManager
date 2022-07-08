@@ -1,0 +1,12 @@
+# 7
+
+#!/bin/bash
+
+# IMPORTANT!!!
+# If The OS Installation Concerns Ubuntu Server This Step Will not Take Affect and Can be Skipped
+# Also if GNOME is Installed and not Needed, the Following Command Should be Used.
+# apt purge gdm3
+# The Following Scripts Concers Ubuntu 20.04 Desktop Version With GNOME Display Manager Installed
+
+# Create a Banner Message to Inform Users Accordingly
+sed -i 's/.*[org\/gnome\/login-screen].*/[org\/gnome\/login-screen] \banner-message-enable=true \banner-message-text=\"New Message\" \disable-user-list=true/g' /etc/gdm3/greeter.dconf-defaults
