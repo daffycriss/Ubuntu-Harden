@@ -19,5 +19,6 @@ echo ''
 echo '============================================================'
 echo 'This Script Enables AppArmor in the Bootloader Configuration'
 sed -i 's/.*GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\"apparmor=1 security=apparmor\"/g' /etc/default/grub
+update-grub
 echo '============================================================'
 echo ''
