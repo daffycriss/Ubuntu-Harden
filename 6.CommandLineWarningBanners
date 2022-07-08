@@ -10,3 +10,12 @@ echo 'This Script Removes the Message of the Day File'
 rm /etc/motd
 echo '==============================================='
 echo ''
+
+# Configure Local Login Warning Banner
+echo '======================================================='
+echo 'This Script Configures the Local Login Banner.'
+echo 'OS Version Will not be Displayed but a Warning Message.'
+# Custom Message can be Configured as Needed
+echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
+echo '======================================================='
+echo ''
