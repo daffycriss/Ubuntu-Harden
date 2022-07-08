@@ -13,7 +13,7 @@ echo 'AppArmor Documentation: http://wiki.apparmor.net/index.php/Documentation'
 echo 'Ubuntu AppArmor Documentation: https://help.ubuntu.com/community/AppArmor'
 echo 'SUSE AppArmor Documentation: https://www.suse.com/documentation/apparmor/'
 apt install -y apparmor
-apt install -υ apparmor-utils
+apt install -y apparmor-utils
 echo '========================================================================='
 echo ''
 
