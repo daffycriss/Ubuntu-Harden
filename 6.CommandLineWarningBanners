@@ -12,7 +12,7 @@ echo '==============================================='
 echo ''
 
 # Configure Local and Remote Login Warning Banner and Set Correct Permissions
-echo '========================================================='
+echo '==========================================================================================='
 echo 'This Script Configures the Local and Remote Login Banner as Well as the Permissions for it.'
 echo 'OS Version Will not be Displayed but a Warning Message as Well as the Permissions for it.'
 # Custom Messages can be Configured as Needed
@@ -22,5 +22,5 @@ chown root:root $(readlink -e /etc/issue)
 chmod u-x,go-wx $(readlink -e /etc/issue)
 chown root:root $(readlink -e /etc/issue.net)
 chmod u-x,go-wx $(readlink -e /etc/issue.net)
-echo '========================================================='
+echo '==========================================================================================='
 echo ''
