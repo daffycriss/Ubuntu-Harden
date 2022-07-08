@@ -11,11 +11,12 @@ rm /etc/motd
 echo '==============================================='
 echo ''
 
-# Configure Local Login Warning Banner
-echo '======================================================='
-echo 'This Script Configures the Local Login Banner.'
+# Configure Local and Remote Login Warning Banner
+echo '========================================================='
+echo 'This Script Configures the Local and Remote Login Banner.'
 echo 'OS Version Will not be Displayed but a Warning Message.'
-# Custom Message can be Configured as Needed
+# Custom Messages can be Configured as Needed
 echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
-echo '======================================================='
+echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue.net
+echo '========================================================='
 echo ''
