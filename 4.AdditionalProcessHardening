@@ -27,3 +27,22 @@ else
 fi
 echo '============================================'
 echo ''
+
+# Ensure core dumps are Restricted
+
+echo '============================================================='
+echo 'This Script Configures core dump Settings'
+if (echo '* hard core 0' >> /etc/security/limits.conf) && (echo 'fs.suid_dumpable = 0' >> /etc/sysctl.conf) && (sysctl -w fs.suid_dumpable=0);then
+  echo 'core dump Configuration Completed Successfully.'
+else
+  echo 'core dump was not Installed. No Action Necessary.'
+fi
+
+if (echo 'Storage=none' >> /etc/systemd/coredump.conf) 2> /dev/null && (echo 'ProcessSizeMax=0' >> /etc/systemd/coredump.conf) 2> /dev/null; then
+  echo 'systemd-coredump Configuration Completed Successfully.'
+else
+  echo 'systemd-coredump wan not Installed. No Action Necessary.'
+fi
+systemctl daemon-reload
+echo '============================================================='
+echo ''
