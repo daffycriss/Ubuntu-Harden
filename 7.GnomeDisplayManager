@@ -9,4 +9,17 @@
 # The Following Scripts Concers Ubuntu 20.04 Desktop Version With GNOME Display Manager Installed
 
 # Create a Banner Message to Inform Users Accordingly
-sed -i 's/.*[org\/gnome\/login-screen].*/[org\/gnome\/login-screen] \banner-message-enable=true \banner-message-text=\"New Message\" \disable-user-list=true/g' /etc/gdm3/greeter.dconf-defaults
+# Is is Mandatory to Configure and Use the newmwssage File
+echo '=============================================================='
+echo 'The Script Configures Login Screen Settings to Display Message'
+echo 'Configure the Disired Message in newmessage File'
+newmessage=$(cat newmessagefile)
+sed -i '/org\/gnome\/login-screen/d' /etc/gdm3/greeter.dconf-defaults
+echo "[org/gnome/login-screen]" >> /etc/gdm3/greeter.dconf-defaults
+echo "banner-message-enable=true" >> /etc/gdm3/greeter.dconf-defaults
+echo "banner-message-text='$newmessage'" >> /etc/gdm3/greeter.dconf-defaults
+echo "disable-user-list=true" >> /etc/gdm3/greeter.dconf-defaults
+echo 'GNOME Will Now be Reconfigured to Update the New Settings'
+dpkg-reconfigure gdm3
+echo '=============================================================='
+echo ''
