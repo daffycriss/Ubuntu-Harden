@@ -21,18 +21,21 @@ echo "============================================="
 echo "Update Repositories and Upgrade Kernel"
 echo "This Might Take a While. Please be Patient..."
 apt-get -y update && apt-get -y full-upgrade
+echo 'Done...'
 echo "============================================="
 echo ''
 
 echo "============================================="
 echo "Cleaning apt Cache..."
 apt-get clean
+echo 'Done...'
 echo "============================================="
 echo ''
 
 echo "============================================="
 echo "Removing Unneeded Packages..."
 apt-get -y autoremove --purge
+echo 'Done...'
 echo "============================================="
 echo ''
 
