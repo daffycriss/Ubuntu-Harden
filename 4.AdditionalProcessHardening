@@ -14,7 +14,8 @@ for file in /etc/sysctl.conf; do
  fi
 done
 sysctl -w kernel.randomize_va_space=2
-echo '============================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Ensure Prelink is not Installed
@@ -25,7 +26,8 @@ if (prelink -ua && apt -y purge prelink) 2> /dev/null; then
 else
   echo 'Prelink wan not Installed. No Action Necessary.'
 fi
-echo '============================================'
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Ensure core dumps are Restricted
@@ -44,5 +46,6 @@ else
   echo 'systemd-coredump wan not Installed. No Action Necessary.'
 fi
 systemctl daemon-reload
-echo '============================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
