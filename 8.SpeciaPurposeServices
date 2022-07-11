@@ -6,7 +6,7 @@
 
 # Ensure Time Synchronization
 # Remove Additional Time Synchronization Service
-echo '=================================================='
+echo '====================================================='
 echo 'The Script Configures Time Synchronization Service'
 if apt purge ntp;then
   echo 'ntp was Successfully Removed'
@@ -30,6 +30,16 @@ echo '#should be In Accordence With Local Policy' >> /etc/systemd/timesyncd.conf
 # Restart the Service
 systemctl start systemd-timesyncd.service
 timedatectl set-ntp true
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Avahi Server
+echo '====================================================='
+echo 'The Script Removes Avahi Server'
+systemctl stop avahi-daemon.service
+systemctl stop avahi-daemon.socket
+apt purge avahi-daemon
 echo 'Done...'
 echo '====================================================='
 echo ''
