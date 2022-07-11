@@ -23,12 +23,14 @@ echo "banner-message-text='$newmessage'" >> /etc/gdm3/greeter.dconf-defaults
 echo "disable-user-list=true" >> /etc/gdm3/greeter.dconf-defaults
 echo 'GNOME Will Now be Reconfigured to Update the New Settings'
 dpkg-reconfigure gdm3
-echo '=============================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Ensure XDCMP is not Enabled
 echo '=============================================================='
 echo 'The Script Removes the Related Line from Configuration File'
 sed -i '/Enable=true/d' /etc/gdm3/custom.conf
-echo '=============================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
