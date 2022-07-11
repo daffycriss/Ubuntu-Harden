@@ -1,0 +1,32 @@
+# 8
+
+#!/bin/bash
+
+# Configure Special Purposes Services that are Installed on System that Specifically Need to Run These Services.
+
+# Ensure Time Synchronization
+# Remove Additional Time Synchronization Service
+echo '=================================================='
+echo 'The Script Configures Time Synchronization Service'
+if apt purge ntp;then
+  echo 'ntp was Successfully Removed'
+else
+  echo 'ntp was not Found on the System.'
+if apt purge chrony;then
+  echo 'chrony was Successfully Removed'
+else
+  echo 'chrony was not Found on the System.'
+# Enable systemd-timesyncd Time Synchronization Service
+systemctl enable systemd-timesyncd.service
+# Configure /etc/systemd/timesyncd.conf by Adding the Following Lines
+echo 'NTP=0.debian.pool.ntp.org 1.debian.pool.ntp.org' >> /etc/systemd/timesyncd.conf
+echo '#Servers listed should be In Accordence With Local Policy' >> /etc/systemd/timesyncd.conf
+echo 'FallbackNTP=2.debian.pool.ntp.org 3.debian.pool.ntp.org' >> /etc/systemd/timesyncd.conf
+echo '#Servers listed should be In Accordence With Local Policy' >> /etc/systemd/timesyncd.conf
+echo 'RootDistanceMax=1' >> /etc/systemd/timesyncd.conf
+echo '#should be In Accordence With Local Policy' >> /etc/systemd/timesyncd.conf
+# Restart the Service
+systemctl start systemd-timesyncd.service
+timedatectl set-ntp true
+echo '=================================================='
+echo ''
