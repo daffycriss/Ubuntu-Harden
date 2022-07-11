@@ -51,3 +51,11 @@ apt purge -y cups
 echo 'Done...'
 echo '====================================================='
 echo ''
+
+# Remove dhcp Server
+echo '====================================================='
+echo 'The Script Removes dhcp Server'
+apt purge -y isc-dhcp-server
+echo 'Done...'
+echo '====================================================='
+echo ''
