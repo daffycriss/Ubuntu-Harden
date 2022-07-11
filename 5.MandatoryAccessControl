@@ -14,7 +14,8 @@ echo 'Ubuntu AppArmor Documentation: https://help.ubuntu.com/community/AppArmor'
 echo 'SUSE AppArmor Documentation: https://www.suse.com/documentation/apparmor/'
 apt install -y apparmor
 apt install -y apparmor-utils
-echo '========================================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Ensure AppArmor is Enabled in the Bootloader Configuration
@@ -23,7 +24,8 @@ echo 'This Script Enables AppArmor in the Bootloader Configuration'
 sed -i 's/.*GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\"apparmor=1 security=apparmor\"/g' /etc/default/grub
 echo 'Updating grub...Please Wait...'
 update-grub
-echo '============================================================'
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Ensure all apparmor Profiles to enforce or complain Mode
@@ -35,5 +37,6 @@ aa-enforce /etc/apparmor.d/*
 # The Following Script Sets all Profiles to Complain Mode
 # Remove the # to Enable it
 # aa-complain /etc/apparmor.d/*
-echo '============================================================'
+echo 'Done...'
+echo '====================================================='
 echo ''
