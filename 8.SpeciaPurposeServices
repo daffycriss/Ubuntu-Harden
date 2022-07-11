@@ -43,3 +43,11 @@ apt purge -y avahi-daemon
 echo 'Done...'
 echo '====================================================='
 echo ''
+
+# Remove CUPS
+echo '====================================================='
+echo 'The Script Removes CUPS'
+apt purge -y cups
+echo 'Done...'
+echo '====================================================='
+echo ''
