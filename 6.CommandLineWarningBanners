@@ -8,7 +8,8 @@
 echo '==============================================='
 echo 'This Script Removes the Message of the Day File'
 rm /etc/motd
-echo '==============================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
 
 # Configure Local and Remote Login Warning Banner and Set Correct Permissions
@@ -22,5 +23,6 @@ chown root:root $(readlink -e /etc/issue)
 chmod u-x,go-wx $(readlink -e /etc/issue)
 chown root:root $(readlink -e /etc/issue.net)
 chmod u-x,go-wx $(readlink -e /etc/issue.net)
-echo '==========================================================================================='
+echo 'Done...'
+echo '====================================================='
 echo ''
