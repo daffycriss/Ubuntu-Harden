@@ -12,10 +12,12 @@ if apt purge ntp;then
   echo 'ntp was Successfully Removed'
 else
   echo 'ntp was not Found on the System.'
+fi
 if apt purge chrony;then
   echo 'chrony was Successfully Removed'
 else
   echo 'chrony was not Found on the System.'
+fi
 # Enable systemd-timesyncd Time Synchronization Service
 systemctl enable systemd-timesyncd.service
 # Configure /etc/systemd/timesyncd.conf by Adding the Following Lines
