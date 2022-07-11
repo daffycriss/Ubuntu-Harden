@@ -39,7 +39,7 @@ echo '====================================================='
 echo 'The Script Removes Avahi Server'
 systemctl stop avahi-daemon.service
 systemctl stop avahi-daemon.socket
-apt purge avahi-daemon
+apt purge -y avahi-daemon
 echo 'Done...'
 echo '====================================================='
 echo ''
