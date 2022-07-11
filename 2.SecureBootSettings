@@ -6,17 +6,19 @@
 echo '====================================================='
 echo "Configure Privileges to 400 in /usr/sbin/grubmkconfig"
 echo "It might take some time. Please be patient..."
+sed -ri 's/chmod\s+[0-7][0-7][0-7]\s+\$\{grub_cfg\}\.new/chmod 400 ${grub_cfg}.new/' /usr/sbin/grub-mkconfig
+echo 'Done...'
 echo '====================================================='
 echo ''
-sed -ri 's/chmod\s+[0-7][0-7][0-7]\s+\$\{grub_cfg\}\.new/chmod 400 ${grub_cfg}.new/' /usr/sbin/grub-mkconfig
 
 # Run the Following Command to Allow bootloader config Only to Root Users
 echo '============================================================='
 echo "Configure Privileges Only to Root Users for bootloader config"
-echo '============================================================='
-echo ''
 chown root:root /boot/grub/grub.cfg
 chmod u-wx,go-rwx /boot/grub/grub.cfg
+echo 'Done...'
+echo '====================================================='
+echo ''
 
 # Run the Following Command to Ensure Authentication Required for Single User Mode
 # If it is Already Configured You Are Able to Change it or Retype the Same Password
@@ -24,9 +26,10 @@ echo '==================================================='
 echo "Ensure Authentication Required for Single User Mode"
 echo "Provide New Password for ROOT as Indicated."
 echo "WRITE DOWN THE NEW PASSWORD!!!"
-echo '==================================================='
-echo ''
 passwd root
+echo 'Done...'
+echo '====================================================='
+echo ''
 
 # Run the Following Command to Remove Check on Password not Being set to Before Running chmod Command
 sed -ri 's/ && ! grep "\^password" \$\{grub_cfg\}.new >\/dev\/null//' /usr/sbin/grub-mkconfig
@@ -53,5 +56,9 @@ echo "cat << EOF" >> /etc/grub.d/10_linux
 echo $newunline >> /etc/grub.d/10_linux
 echo $newpassline >> /etc/grub.d/10_linux
 echo "EOF" >> /etc/grub.d/10_linux
+echo 'Done...'
+echo '====================================================='
+echo ''
+echo 'The System will now Reboot...'
 update-grub
 init 6
