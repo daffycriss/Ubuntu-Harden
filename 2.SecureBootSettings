@@ -22,7 +22,7 @@ chmod u-wx,go-rwx /boot/grub/grub.cfg
 # If it is Already Configured You Are Able to Change it or Retype the Same Password
 echo '==================================================='
 echo "Ensure Authentication Required for Single User Mode"
-echo "Provide New Password as Indicated."
+echo "Provide New Password for ROOT as Indicated."
 echo "WRITE DOWN THE NEW PASSWORD!!!"
 echo '==================================================='
 echo ''
