@@ -13,7 +13,6 @@ If you don't Want Some of these Services to b Disabled you Need to Remove them F
 Comment the Appropriate Lines.
 Additionally, Hardening a System is not a Static Procedure but an Every Day Task.
 More Tasks are Need to be Done, eg masking services, or port blocking.
-
 ============================================================================================================================
 
 passfile & unfile
