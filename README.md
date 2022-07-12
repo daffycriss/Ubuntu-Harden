@@ -18,7 +18,7 @@ Comment the Appropriate Lines.
 
 Additionally, Hardening a System is not a Static Procedure but an Every Day Task.
 
-More Tasks are Need to be Done, ex masking services, or port blocking.
+More Tasks are Need to be Done (for example: masking services, or port blocking).
 
 passfile & unfile
 ============================================================================================================================
