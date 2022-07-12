@@ -52,10 +52,83 @@ echo 'Done...'
 echo '====================================================='
 echo ''
 
-# Remove dhcp Server
+# Remove DHCP Server
 echo '====================================================='
-echo 'The Script Removes dhcp Server'
+echo 'The Script Removes DHCP Server'
 apt purge -y isc-dhcp-server
 echo 'Done...'
 echo '====================================================='
 echo ''
+
+# Remove LDAP Server
+echo '====================================================='
+echo 'The Script Removes LDAP Server'
+apt purge -y slapd
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Network File System Service (NFS)
+echo '====================================================='
+echo 'The Script Removes Network File System Service (NFS)'
+apt purge -y nfs-kernel-server
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Domain Name Service (DNS)
+echo '====================================================='
+echo 'The Script Removes Domain Name Service (DNS)'
+apt purge -y bind9
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove FTP Server
+echo '====================================================='
+echo 'The Script Removes FTP Server'
+apt purge -y vsftpd
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove HTTP Server
+echo '====================================================='
+echo 'The Script Removes HTTP Server'
+apt purge -y apache2
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove IMAP and POP3 Server
+echo '====================================================='
+echo 'The Script Removes IMAP and POP3 Server'
+apt purge -y dovecot-imapd dovecot-pop3d
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Samba Service
+echo '====================================================='
+echo 'The Script Removes Samba Service'
+apt purge -y samba
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove HTTP Proxy Server
+echo '====================================================='
+echo 'The Script Removes HTTP Proxy Server'
+apt purge -y squid
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove SNMP Server
+echo '====================================================='
+echo 'The Script Removes SNMP Server'
+apt purge -y snmpd
+echo 'Done...'
+echo '====================================================='
+echo ''
+
