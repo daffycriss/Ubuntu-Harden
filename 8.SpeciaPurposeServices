@@ -132,3 +132,40 @@ echo 'Done...'
 echo '====================================================='
 echo ''
 
+# Ensure Mail Transfer Agent is Configured for Local-Only Mode
+echo '====================================================================================='
+echo 'The Script Configures Mail Transfer Agent for Local-Only Mode (if exim4 is Installed)'
+if (echo "dc_eximconfig_configtype='local'" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_local_interfaces='127.0.0.1 ; ::1'" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_readhost=''" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_relay_domains=''" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_minimaldns='false'" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_relay_nets=''" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_smarthost=''" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_use_split_config='false'" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_hide_mailname=''" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_mailname_in_oh='true'" >> /etc/exim4/update-exim4.conf.conf &&
+echo "dc_localdelivery='mail_spool'" >> /etc/exim4/update-exim4.conf.conf &&
+systemctl restart exim4) 2> /dev/null ;then
+  echo 'exim4 Configured Succesfully'
+else
+  echo 'exim4 was not Installed.'
+fi
+echo '====================================================================================='
+echo ''
+
+# Remove rsync Service
+echo '====================================================='
+echo 'The Script Removes rsync Service'
+apt purge -y rsync
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Network Information Service (NIS) Server
+echo '==========================================================='
+echo 'The Script Removes Network Information Service (NIS) Server'
+apt purge -y nis
+echo 'Done...'
+echo '==========================================================='
+echo ''
