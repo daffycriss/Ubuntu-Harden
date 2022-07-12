@@ -1,0 +1,43 @@
+# 9
+
+#!/bin/bash
+
+# Remove rsh Client
+echo '====================================================='
+echo 'The Script Removes rsh Client'
+apt purge -y rsh-client
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Talk Client
+echo '====================================================='
+echo 'The Script Removes Talk Client'
+apt purge -y talk
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Telnet Client
+echo '====================================================='
+echo 'The Script Removes Telnet Client'
+apt purge -y telnet
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove LDAP Client
+echo '====================================================='
+echo 'The Script Removes LDAP Client'
+apt purge -y ldap-utils
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Remove Remote Procedure Call (RPC)
+echo '====================================================='
+echo 'The Script Removes Remote Procedure Call (RPC)'
+apt purge -y rpcbind
+echo 'Done...'
+echo '====================================================='
+echo ''
