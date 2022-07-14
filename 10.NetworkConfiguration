@@ -1,0 +1,22 @@
+# 10
+
+#!/bin/bash
+
+# Disable Unused Network Protocols and Devices
+# Disable IPv6
+echo '====================================================='
+echo 'The Script Disables IPv6'
+# If ssh is Enabled, Disabling IPv6 X11forwarding May no Longer Function as Expected.
+# In That Case, it is Recommended to add the Following Line in /etc/sshd/sshd_config File.
+# The Following 2 Lines Need to be Uncommented For the Script to Take Affect.
+# echo 'AddressFamily inet' >> /etc/sshd/sshd_config
+# systemctl restart sshd
+
+echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
+echo 'net.ipv6.conf.default.disable_ipv6 = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sysctl -w net.ipv6.route.flush=1
+echo 'Done...'
+echo '====================================================='
+echo ''
