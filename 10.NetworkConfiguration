@@ -23,6 +23,7 @@ echo ''
 
 # Disable Wireless Interfaces
 echo '====================================================='
+echo 'The Script Disables all Wireless Interfaces'
 if command -v nmcli >/dev/null 2>&1 ; then
  nmcli radio all off
 else
