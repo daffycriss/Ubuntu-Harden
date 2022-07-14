@@ -39,9 +39,11 @@ File created in order to support the functionality of Script: 7.GnomeDisplayMana
 IPv6
 ============================================================================================================================
 Additional Attention Should be Taken to Proper Configuration of SSH X11forwarding.
+
 Details are Included in the Script 10.NetworkConfiguration
 
 Wireless Interfaces
 ============================================================================================================================
 Comment the Appropriate Script Lines in Case that Wireless Interfaces are Mandatory for your Implementation.
+
 Details are Included in the Script 10.NetworkConfiguration
