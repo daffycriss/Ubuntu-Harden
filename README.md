@@ -20,6 +20,11 @@ Additionally, Hardening a System is not a Static Procedure but an Every Day Task
 
 More Tasks are Need to be Done (for example: masking services, or port blocking).
 
+// BE CAREFULL !!!
+// Too Strict Security, Lacks Functionality.
+// You Must Find the Correct Balance in Order to Have a Secure System,
+// but Also an Implementation that Meets your Functional Needs.
+
 passfile & unfile
 ============================================================================================================================
 Files created in order to support the functionality of Script: 2.SecureBootSettings
