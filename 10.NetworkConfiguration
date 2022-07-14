@@ -51,3 +51,13 @@ sysctl -w net.ipv4.route.flush=1
 echo 'Done...'
 echo '====================================================='
 echo ''
+
+# Disable IP Forwarding
+# The Following Script is Functional Based on IPv6 is Disabled.
+# If IPv6 is Enabled a Different Approach Must be Taken.
+echo '====================================================='
+echo 'The Script Disables IP Forwarding'
+grep -Els "^\s*net\.ipv4\.ip_forward\s*=\s*1" /etc/sysctl.conf /etc/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /run/sysctl.d/*.conf | while read filename; do sed -ri "s/^\s*(net\.ipv4\.ip_forward\s*)(=)(\s*\S+\b).*$/# *REMOVED* \1/" $filename; done; sysctl -w net.ipv4.ip_forward=0; sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '====================================================='
+echo ''
