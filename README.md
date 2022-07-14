@@ -28,3 +28,8 @@ Files created in order to support the functionality of Script: 2.SecureBootSetti
 newmessagefile
 ============================================================================================================================
 File created in order to support the functionality of Script: 7.GnomeDisplayManager
+
+IPv6
+============================================================================================================================
+Additional Attention Should be Taken to Proper Configuration of SSH X11forwarding.
+Details are Included in the Script
