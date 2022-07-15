@@ -78,7 +78,7 @@ echo ''
 # Ensure SCTP is Disabled
 echo '====================================================='
 echo 'The Script Disables SCTP'
-echo 'install sctp /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'install sctp /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf 2> /dev/null
 echo 'Done...'
 echo '====================================================='
 echo ''
@@ -86,7 +86,7 @@ echo ''
 # Ensure RDS is Disabled
 echo '====================================================='
 echo 'The Script Disables RDS'
-echo 'install rds /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'install rds /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf 2> /dev/null
 echo 'Done...'
 echo '====================================================='
 echo ''
@@ -94,7 +94,7 @@ echo ''
 # Ensure TIPC is Disabled
 echo '====================================================='
 echo 'The Script Disables TIPC'
-echo 'install tipc /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'install tipc /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf 2> /dev/null
 echo 'Done...'
 echo '====================================================='
 echo ''
