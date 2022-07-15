@@ -1,0 +1,61 @@
+# 11
+
+#!/bin/bash
+
+# FireWall Configuration
+
+# Installation of ufw (Unconmplicated Firewall)
+echo '================================================================='
+echo 'Installation of ufw Only (No Installation of iptables-persistent)'
+echo '(Avoiding Conflict)'
+apt install -y ufw
+apt purge -y iptables-persistent
+ufw allow proto tcp from any to any port 22
+ufw enable
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# ufw Loopback and Outbound Configuration
+echo '================================================================='
+echo 'This Script Configures ufw Loopback and Outbound'
+ufw allow in on lo
+ufw allow out on lo
+ufw deny in from 127.0.0.0/8
+ufw deny in from ::1
+ufw allow out on all
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# ============================================================================
+# IMPORTANT !!!
+# Additional Rules for ufw Must be Added for Open Ports
+# This Depends on the System Configurations
+# Without a Firewall Rule Configured for Open Ports Default Firewall Policy will Drop all Packets to These Ports.
+# Related Command: ufw allow in <port>/<tcp or udp protocol>
+# IMPORTANT !!!
+# ============================================================================
+
+# Ensure ufw Default Deny Firewall Policy
+echo '================================================================='
+echo 'This Script Ensures ufw Default Deny Firewall Policy'
+echo 'It Also Allows Specific Protocols for Basic Functionality'
+ufw default deny incoming
+ufw default deny outgoing
+ufw default deny routed
+ufw allow git
+ufw allow in http
+ufw allow in https
+ufw allow out 53
+ufw logging on
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# ============================================================================
+# IMPORTANT !!!
+# Appropriate Settings Can Take Place for iptables or nftables
+# Please Read Related Documentation
+# IMPORTANT !!!
+# ============================================================================
