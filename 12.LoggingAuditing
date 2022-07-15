@@ -2,11 +2,21 @@
 
 #!/bin/bash
 
-# Ensure Auditing is Enabled
+# Ensure Auditing is Installed and Enabled
 echo '====================================================='
-echo 'The Script Enables Auditing'
-sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1/' file
-update-grub
+echo 'The Script Installs and Enables Auditing'
+apt install auditd audispd-plugins
+systemctl --now enable auditd
 echo 'Done...'
 echo '====================================================='
+echo ''
+
+# Ensure Auditing for Processes that Start Prior to auditd is Enabled and audit_backlog_limit is Sufficient
+echo '==============================================================================='
+echo 'The Script Ensures Auditing for Processes that Start Prior to auditd is Enabled'
+echo 'and audit_backlog_limit is Sufficient'
+sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1 audit_backlog_limit=8192/' file
+update-grub
+echo 'Done...'
+echo '==============================================================================='
 echo ''
