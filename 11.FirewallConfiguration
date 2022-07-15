@@ -42,8 +42,10 @@ echo '================================================================='
 echo 'This Script Ensures ufw Default Deny Firewall Policy'
 echo 'It Also Allows Specific Protocols for Basic Functionality'
 ufw allow in git
+ufw allow in http
 ufw allow in https
 ufw allow out git
+ufw allow out http
 ufw allow out https
 ufw allow out 53
 ufw logging on
