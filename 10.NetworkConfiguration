@@ -61,3 +61,97 @@ grep -Els "^\s*net\.ipv4\.ip_forward\s*=\s*1" /etc/sysctl.conf /etc/sysctl.d/*.c
 echo 'Done...'
 echo '====================================================='
 echo ''
+
+# ============================================================================
+# IMPORTANT !!!
+# The Following Settings Concern a System that is not Meant to Act as a Router
+# Comment the Script if your System has got a Router Role
+# IMPORTANT !!!
+# ============================================================================
+
+# Ensure Source Routed Packets are not Accepted
+# The Following Script is Functional Based on IPv6 is Disabled.
+# If IPv6 is Enabled a Different Approach Must be Taken.
+echo '========================================================='
+echo 'The Script Ensures Source Routed Packets are not Accepted'
+echo 'net.ipv4.conf.all.accept_source_route = 0' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.accept_source_route = 0' >> /etc/sysctl.conf
+sysctl -w net.ipv4.conf.all.accept_source_route=0
+sysctl -w net.ipv4.conf.default.accept_source_route=0
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure ICMP and Secure ICMP Redirects are not Accepted
+# The Following Script is Functional Based on IPv6 is Disabled.
+# If IPv6 is Enabled a Different Approach Must be Taken.
+echo '========================================================='
+echo 'The Script Ensures ICMP and Secure ICMP Redirects are not Accepted'
+echo 'net.ipv4.conf.all.accept_redirects = 0' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.accept_redirects = 0' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.all.secure_redirects = 0' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.secure_redirects = 0' >> /etc/sysctl.conf
+sysctl -w net.ipv4.conf.all.accept_redirects=0
+sysctl -w net.ipv4.conf.default.accept_redirects=0
+sysctl -w net.ipv4.route.flush=1
+sysctl -w net.ipv4.conf.all.secure_redirects=0
+sysctl -w net.ipv4.conf.default.secure_redirects=0
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure Suspicious Packets are Logged
+echo '========================================================='
+echo 'The Script Ensures Suspicious Packets are Logged'
+echo 'net.ipv4.conf.all.log_martians = 1' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.log_martians = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv4.conf.all.log_martians=1
+sysctl -w net.ipv4.conf.default.log_martians=1
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure Broadcast ICMP Requests are Ignored
+echo '========================================================='
+echo 'The Script Ensures Broadcast ICMP Requests are Ignored'
+echo 'net.ipv4.icmp_echo_ignore_broadcasts = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure Bogus ICMP Responses are Ignored
+echo '========================================================='
+echo 'The Script Ensures Bogus ICMP Responses are Ignored'
+echo 'net.ipv4.icmp_ignore_bogus_error_responses = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure Reverse Path Filtering is Enabled
+echo '========================================================='
+echo 'The Script Ensures Reverse Path Filtering is Enabled'
+echo 'net.ipv4.conf.all.rp_filter = 1' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.rp_filter = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv4.conf.all.rp_filter=1
+sysctl -w net.ipv4.conf.default.rp_filter=1
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
+
+# Ensure TCP SYN Cookies is Enabled
+echo '========================================================='
+echo 'The Script Ensures TCP SYN Cookies is Enabled'
+echo 'net.ipv4.tcp_syncookies = 1' >> /etc/sysctl.conf
+sysctl -w net.ipv4.tcp_syncookies=1
+sysctl -w net.ipv4.route.flush=1
+echo 'Done...'
+echo '========================================================='
+echo ''
