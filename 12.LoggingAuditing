@@ -1,0 +1,12 @@
+# 12
+
+#!/bin/bash
+
+# Ensure Auditing is Enabled
+echo '====================================================='
+echo 'The Script Enables Auditing'
+sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1/' file
+update-grub
+echo 'Done...'
+echo '====================================================='
+echo ''
