@@ -62,6 +62,43 @@ echo 'Done...'
 echo '====================================================='
 echo ''
 
+# Uncommon Network Protocols
+
+# Create a File That Will be Used for Blacklisted Uncommon Protocols
+touch /etc/modprobe.d/blacklisted_protocols.conf
+
+# Ensure DCCP is Disabled
+echo '====================================================='
+echo 'The Script Disables DCCP'
+echo 'install dccp /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf 2> /dev/null
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Ensure SCTP is Disabled
+echo '====================================================='
+echo 'The Script Disables SCTP'
+echo 'install sctp /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Ensure RDS is Disabled
+echo '====================================================='
+echo 'The Script Disables RDS'
+echo 'install rds /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Ensure TIPC is Disabled
+echo '====================================================='
+echo 'The Script Disables TIPC'
+echo 'install tipc /bin/true' >> /etc/modprobe.d/blacklisted_protocols.conf) 2> /dev/null
+echo 'Done...'
+echo '====================================================='
+echo ''
+
 # ============================================================================
 # IMPORTANT !!!
 # The Following Settings Concern a System that is not Meant to Act as a Router
