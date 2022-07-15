@@ -15,7 +15,7 @@ echo ''
 echo '==============================================================================='
 echo 'The Script Ensures Auditing for Processes that Start Prior to auditd is Enabled'
 echo 'and audit_backlog_limit is Sufficient'
-sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1 audit_backlog_limit=8192/' file
+sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1 audit_backlog_limit=8192/' /etc/default/grub
 update-grub
 echo 'Done...'
 echo '==============================================================================='
