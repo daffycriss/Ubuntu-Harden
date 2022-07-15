@@ -41,14 +41,14 @@ echo ''
 echo '================================================================='
 echo 'This Script Ensures ufw Default Deny Firewall Policy'
 echo 'It Also Allows Specific Protocols for Basic Functionality'
-ufw default deny incoming
-ufw default deny outgoing
-ufw default deny routed
 ufw allow git
 ufw allow in http
 ufw allow in https
 ufw allow out 53
 ufw logging on
+ufw default deny incoming
+ufw default deny outgoing
+ufw default deny routed
 echo 'Done...'
 echo '================================================================='
 echo ''
