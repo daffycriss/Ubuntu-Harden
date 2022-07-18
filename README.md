@@ -47,3 +47,9 @@ Wireless Interfaces
 Comment the Appropriate Script Lines in Case that Wireless Interfaces are Mandatory for your Implementation.
 
 Details are Included in the Script 10.NetworkConfiguration
+
+50-default.conf
+============================================================================================================================
+Replace Default rsyslog File With Configured One.
+
+Details are Included in the Script 12.LoggingAuditing
