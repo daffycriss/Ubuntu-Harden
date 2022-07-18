@@ -268,3 +268,21 @@ echo '-e 2' >> /etc/audit/rules.d/99-finalize.rules
 echo 'Done...'
 echo '======================================================='
 echo ''
+
+# Logging
+# Ensure rsyslog is Installed and Enabled
+echo '====================================================='
+echo 'The Script Installs and Enables rsyslog'
+apt install -y rsyslog
+systemctl --now enable rsyslog
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Replace Default conf File With Configured One
+echo '========================================================='
+echo 'The Script Replaces Default conf File With Configured One'
+cp 50-default.conf /etc/rsyslog.d/
+echo 'Done...'
+echo '========================================================='
+echo ''
