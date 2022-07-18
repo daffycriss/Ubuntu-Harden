@@ -283,6 +283,15 @@ echo ''
 echo '========================================================='
 echo 'The Script Replaces Default conf File With Configured One'
 cp 50-default.conf /etc/rsyslog.d/
+systemctl reload rsyslog
 echo 'Done...'
 echo '========================================================='
+echo ''
+
+# Ensure rsyslog Default File Permissions Configured
+echo '============================================================='
+echo 'The Script Ensure rsyslog Default File Permissions Configured'
+sed -i "/\$FileCreateMode/c\$FileCreateMode 0640" /etc/rsyslog.conf
+echo 'Done...'
+echo '============================================================='
 echo ''
