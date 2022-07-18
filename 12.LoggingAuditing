@@ -2,6 +2,11 @@
 
 #!/bin/bash
 
+# Variables that Will be Used for Architecture Check and Control
+RESULT=$(uname -m)
+X64="x86_64"
+
+# Audit and Data Retention
 # Ensure Auditing is Installed and Enabled
 echo '====================================================='
 echo 'The Script Installs and Enables Auditing'
@@ -19,4 +24,249 @@ sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& audit=1 audit_backlog_limit=8192/' /etc/de
 update-grub
 echo 'Done...'
 echo '==============================================================================='
+echo ''
+
+# Ensure Audit log Storage Size is Configured
+# Ensure Audit logs are not Automatically Deleted
+# Ensure System is Disabled when Audit logs are Full
+# In Case max_log_file Needs to be Set on Different Size, Change the Appropriate Line Accordingly
+echo '====================================================='
+echo 'The Script Sets max_log_file to 200 MB,'
+echo 'Ensures Logs are not Automatically Deleted'
+echo 'and Ensures System is Disabled when Audit logs are Full'
+sed -i "/max_log_file = .*/c\max_log_file = 200" /etc/audit/auditd.conf
+sed -i "/max_log_file_action = .*/c\max_log_file_action = keep_logs" /etc/audit/auditd.conf
+sed -i "/space_left_action = .*/c\space_left_action = email" /etc/audit/auditd.conf
+sed -i "/action_mail_acct = .*/c\action_mail_acct = root" /etc/audit/auditd.conf
+sed -i "/admin_space_left_action = .*/c\admin_space_left_action = halt" /etc/audit/auditd.conf
+echo 'Done...'
+echo '====================================================='
+echo ''
+
+# Ensure Events that Modify Date and Time Information are Collected
+echo '============================================================================='
+echo 'The Script Ensures Events that Modify Date and Time Information are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-time-change.rules
+  echo '-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change' >> /etc/audit/rules.d/50-time-change.rules
+  echo '-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k timechange' >> /etc/audit/rules.d/50-time-change.rules
+  echo '-a always,exit -F arch=b64 -S clock_settime -k time-change' >> /etc/audit/rules.d/50-time-change.rules  
+  echo '-a always,exit -F arch=b32 -S clock_settime -k time-change' >> /etc/audit/rules.d/50-time-change.rules
+  echo '-w /etc/localtime -p wa -k time-change' >> /etc/audit/rules.d/50-time-change.rules
+else
+  touch /etc/audit/rules.d/50-time-change.rules
+  echo '-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k timechange' >> /etc/audit/rules.d/50-time-change.rules
+  echo '-a always,exit -F arch=b32 -S clock_settime -k time-change' >> /etc/audit/rules.d/50-time-change.rules
+  echo '-w /etc/localtime -p wa -k time-change' >> /etc/audit/rules.d/50-time-change.rules
+fi
+echo 'Done...'
+echo '============================================================================='
+echo ''
+
+# Ensure Events that Modify user/group Information are Collected
+echo '=========================================================================='
+echo 'The Script Ensures Events that Modify user/group Information are Collected'
+touch /etc/audit/rules.d/50-identity.rules
+echo '-w /etc/group -p wa -k identity' >> /etc/audit/rules.d/50-identity.rules
+echo '-w /etc/passwd -p wa -k identity' >> /etc/audit/rules.d/50-identity.rules
+echo '-w /etc/gshadow -p wa -k identity' >> /etc/audit/rules.d/50-identity.rules
+echo '-w /etc/shadow -p wa -k identity' >> /etc/audit/rules.d/50-identity.rules
+echo '-w /etc/security/opasswd -p wa -k identity' >> /etc/audit/rules.d/50-identity.rules
+echo 'Done...'
+echo '=========================================================================='
+echo ''
+
+# Ensure Events that Modify the System's Network Environment are Collected
+echo '=================================================================================='
+echo 'The Script Ensures Events that Modify the System Network Environment are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-system-locale.rules
+  echo '-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/issue -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/issue.net -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/hosts -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/network -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+else
+  touch /etc/audit/rules.d/50-system-locale.rules
+  echo '-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/issue -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/issue.net -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/hosts -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+  echo '-w /etc/network -p wa -k system-locale' >> /etc/audit/rules.d/50-system-locale.rules
+fi
+echo 'Done...'
+echo '=================================================================================='
+echo ''
+
+# Ensure Εvents that Μodify the System Mandatory Access Controls are Collected
+echo '========================================================================================'
+echo 'The Script Ensures Εvents that Μodify the System Mandatory Access Controls are Collected'
+touch /etc/audit/rules.d/50-MAC-policy.rules
+echo '-w /etc/apparmor/ -p wa -k MAC-policy' >> /etc/audit/rules.d/50-MAC-policy.rules
+echo '-w /etc/apparmor.d/ -p wa -k MAC-policy' >> /etc/audit/rules.d/50-MAC-policy.rules
+echo 'Done...'
+echo '========================================================================================'
+echo ''
+
+# Ensure Login and Logout Events are Collected
+echo '========================================================'
+echo 'The Script Ensures Login and Logout Events are Collected'
+touch /etc/audit/rules.d/50-logins.rules
+echo '-w /var/log/faillog -p wa -k logins' >> /etc/audit/rules.d/50-logins.rules
+echo '-w /var/log/lastlog -p wa -k logins' >> /etc/audit/rules.d/50-logins.rules
+echo '-w /var/log/tallylog -p wa -k logins' >> /etc/audit/rules.d/50-logins.rules
+echo 'Done...'
+echo '========================================================'
+echo ''
+
+# Ensure Session Initiation Information is Collected
+echo '=============================================================='
+echo 'The Script Ensures Session Initiation Information is Collected'
+touch /etc/audit/rules.d/50-session.rules
+echo '-w /var/run/utmp -p wa -k session' >> /etc/audit/rules.d/50-session.rules
+echo '-w /var/log/wtmp -p wa -k logins' >> /etc/audit/rules.d/50-session.rules
+echo '-w /var/log/btmp -p wa -k logins' >> /etc/audit/rules.d/50-session.rules
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure Discretionary Access Control Permission Modification Events are Collected
+echo '============================================================================================'
+echo 'The Script Ensures Discretionary Access Control Permission Modification Events are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+else
+  touch /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295' >> /etc/audit/rules.d/50-perm_mod.rules
+  echo '-k perm_mod' >> /etc/audit/rules.d/50-perm_mod.rules
+fi
+echo 'Done...'
+echo '============================================================================================'
+echo ''
+
+# Ensure Unsuccessful Unauthorized File Access Attempts are Collected
+echo '==============================================================================='
+echo 'The Script Ensures Unsuccessful Unauthorized File Access Attempts are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-access.rules  
+  echo '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+  echo '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+  echo '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+  echo '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+else
+  touch /etc/audit/rules.d/50-access.rules
+  echo '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+  echo '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access' >> /etc/audit/rules.d/50-access.rules
+fi
+echo 'Done...'
+echo '==============================================================================='
+echo ''
+
+# Ensure Use of Privileged Commands is Collected
+# by Adding in 50-privileged.rules File Partitions Where Privileged
+# Programs can be Executed From the System
+echo '=========================================================='
+echo 'The Script Ensures Use of Privileged Commands is Collected'
+echo 'This Might Take a While. Please be Patient...'
+touch /etc/audit/rules.d/50-privileged.rules
+find / -xdev \( -perm -4000 -o -perm -2000 \) -type f | awk '{print "-a always,exit -F path=" $1 " -F perm=x -F auid>='"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"' -F auid!=4294967295 -k privileged" }' >> /etc/audit/rules.d/50-privileged.rules
+echo 'Done...'
+echo '=========================================================='
+echo ''
+
+# Ensure Successful File System Mounts are Collected
+echo '=============================================================='
+echo 'The Script Ensures Successful File System Mounts are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-mounts.rules
+  echo '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts' >> /etc/audit/rules.d/50-mounts.rules
+  echo '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts' >> /etc/audit/rules.d/50-mounts.rules
+else
+  touch /etc/audit/rules.d/50-mounts.rules  
+  echo '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts' >> /etc/audit/rules.d/50-mounts.rules  
+fi
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure File Deletion Events by Users are Collected
+echo '=============================================================='
+echo 'The Script Ensures File Deletion Events by Users are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-delete.rules
+  echo '-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete' >> /etc/audit/rules.d/50-delete.rules
+  echo '-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete' >> /etc/audit/rules.d/50-delete.rules
+else
+  touch /etc/audit/rules.d/50-delete.rules
+  echo '-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete' >> /etc/audit/rules.d/50-delete.rules
+fi
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure Changes to System Administration Scope (sudoers) is Collected
+echo '================================================================================'
+echo 'The Script Ensures Changes to System Administration Scope (sudoers) is Collected'
+echo 'This Might Take a While. Please be Patient...'
+touch /etc/audit/rules.d/50-scope.rules
+echo '-w /etc/sudoers -p wa -k scope' >> /etc/audit/rules.d/50-scope.rules
+echo '-w /etc/sudoers.d/ -p wa -k scope' >> /etc/audit/rules.d/50-scope.rules
+echo 'Done...'
+echo '================================================================================'
+echo ''
+
+# Ensure System Administrator Command Executions (sudo) are Collected
+echo '==============================================================================='
+echo 'The Script Ensures System Administrator Command Executions (sudo) are Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-actions.rules
+  echo '-a always,exit -F arch=b64 -C euid!=uid -F euid=0 -Fauid>=1000 -F auid!=4294967295 -S execve -k actions' >> /etc/audit/rules.d/50-actions.rules
+  echo '-a always,exit -F arch=b32 -C euid!=uid -F euid=0 -Fauid>=1000 -F auid!=4294967295 -S execve -k actions' >> /etc/audit/rules.d/50-actions.rules
+else
+  touch /etc/audit/rules.d/50-actions.rules
+  echo '-a exit,always -F arch=b32 -C euid!=uid -F euid=0 -Fauid>=1000 -F auid!=4294967295 -S execve -k actions' >> /etc/audit/rules.d/50-actions.rules
+fi
+echo 'Done...'
+echo '==============================================================================='
+echo ''
+
+# Ensure Kernel Module Loading and Unloading is Collected
+echo '==================================================================='
+echo 'The Script Ensures Kernel Module Loading and Unloading is Collected'
+if [ "$RESULT" == "$X64" ]; then
+  touch /etc/audit/rules.d/50-modules.rules  
+  echo '-w /sbin/insmod -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-w /sbin/rmmod -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-w /sbin/modprobe -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules' >> /etc/audit/rules.d/50-modules.rules  
+else
+  touch /etc/audit/rules.d/50-modules.rules
+  echo '-w /sbin/insmod -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-w /sbin/rmmod -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-w /sbin/modprobe -p x -k modules' >> /etc/audit/rules.d/50-modules.rules
+  echo '-a always,exit -F arch=b32 -S init_module -S delete_module -k modules' >> /etc/audit/rules.d/50-modules.rules
+fi
+echo 'Done...'
+echo '==================================================================='
+echo ''
+
+# Ensure the Audit Configuration is Immutable
+echo '======================================================='
+echo 'The Script Ensures the Audit Configuration is Immutable'
+echo 'This Might Take a While. Please be Patient...'
+touch /etc/audit/rules.d/99-finalize.rules
+echo '-e 2' >> /etc/audit/rules.d/99-finalize.rules
+echo 'Done...'
+echo '======================================================='
 echo ''
