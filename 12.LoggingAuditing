@@ -218,7 +218,6 @@ echo ''
 # Ensure Changes to System Administration Scope (sudoers) is Collected
 echo '================================================================================'
 echo 'The Script Ensures Changes to System Administration Scope (sudoers) is Collected'
-echo 'This Might Take a While. Please be Patient...'
 touch /etc/audit/rules.d/50-scope.rules
 echo '-w /etc/sudoers -p wa -k scope' >> /etc/audit/rules.d/50-scope.rules
 echo '-w /etc/sudoers.d/ -p wa -k scope' >> /etc/audit/rules.d/50-scope.rules
@@ -264,7 +263,6 @@ echo ''
 # Ensure the Audit Configuration is Immutable
 echo '======================================================='
 echo 'The Script Ensures the Audit Configuration is Immutable'
-echo 'This Might Take a While. Please be Patient...'
 touch /etc/audit/rules.d/99-finalize.rules
 echo '-e 2' >> /etc/audit/rules.d/99-finalize.rules
 echo 'Done...'
