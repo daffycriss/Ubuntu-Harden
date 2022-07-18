@@ -295,3 +295,57 @@ sed -i "/\$FileCreateMode/c\$FileCreateMode 0640" /etc/rsyslog.conf
 echo 'Done...'
 echo '============================================================='
 echo ''
+
+# ============================================================================
+# IMPORTANT !!!
+# It is Suggested to Send logs to a Remote Log Server
+# On this Guide no Such Implementation is Created
+# IMPORTANT !!!
+# ============================================================================
+
+# Ensure journald is Configured to Send Logs to rsyslog 
+echo '================================================================='
+echo 'The Script Ensures journald is Configured to Send Logs to rsyslog'
+echo 'ForwardToSyslog=yes' >> /etc/systemd/journald.conf
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# Ensure journald is Configured to Compress Large log Files
+echo '====================================================================='
+echo 'The Script Ensures journald is Configured to Compress Large log Files'
+echo 'Compress=yes' >> /etc/systemd/journald.conf
+echo 'Done...'
+echo '====================================================================='
+echo ''
+
+# Ensure journald is Configured to Write logfiles to Persistent Disk
+echo '=============================================================================='
+echo 'The Script Ensures journald is Configured to Write logfiles to Persistent Disk'
+echo 'Storage=persistent' >> /etc/systemd/journald.conf
+echo 'Done...'
+echo '=============================================================================='
+echo ''
+
+# Ensure Permissions on all logfiles are Configured
+echo '============================================================='
+echo 'The Script Ensures Permissions on all logfiles are Configured'
+find /var/log -type f -exec chmod g-wx,o-rwx "{}" + -o -type d -exec chmod gw,o-rwx "{}" +
+echo 'Done...'
+echo '============================================================='
+echo ''
+
+# Ensure logrotate is Configured
+echo '====================================================='
+echo 'The Script Ensures logrotate is Configured'
+echo '# Configure MaxAge (Days) of logrotate' >> /etc/logrotate.conf
+echo 'maxage 365' >> /etc/logrotate.conf
+echo 'Done...'
+
+# Ensure logrotate Assigns Appropriate Permissions
+echo '============================================================'
+echo 'The Script Ensures logrotate Assigns Appropriate Permissions'
+sed -i "/^create/c\create 0640 root utmp" /etc/logrotate.conf
+echo 'Done...'
+echo '============================================================'
+echo ''
