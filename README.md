@@ -42,6 +42,14 @@ Additional Attention Should be Taken to Proper Configuration of SSH X11forwardin
 
 Details are Included in the Script 10.NetworkConfiguration
 
+sshallowusers
+============================================================================================================================
+File created in order to support the functionality of Script: 13.ConfigSudoSSH
+
+!!! IMPORTANT !!! Edit the File With the Correct Usernames to Avoid Locking Yourself Out of the System
+
+!!! IMPORTANT !!! Allow Group List, Deny User Lists and Deny Group List can Also be Configured Accordingly
+
 50-default.conf
 ============================================================================================================================
 Replace Default rsyslog File With Configured One.
