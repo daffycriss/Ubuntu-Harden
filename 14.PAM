@@ -1,0 +1,40 @@
+# 14
+
+#!/bin/bash
+
+# Ensure Password Creation Requirements are Configured
+echo '================================================================='
+echo 'This Script Ensures Password Creation Requirements are Configured'
+apt install -y libpam-pwquality
+echo 'minlen = 14' >> /etc/security/pwquality.conf
+echo 'minclass = 4' >> /etc/security/pwquality.conf
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# Ensure Lockout for Failed Password Attempts is Configured
+echo '======================================================================'
+echo 'This Script Ensures Lockout for Failed Password Attempts is Configured'
+echo 'auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900' >> /etc/pam.d/common-auth
+sed -i 's/pam_permit.so/pam_tally2.so/' /etc/pam.d/common-account
+echo 'Done...'
+echo '======================================================================'
+echo ''
+
+# Ensure Password Reuse is Limited
+echo '================================================================='
+echo 'This Script Ensures Password Reuse is Limited'
+echo 'password required pam_pwhistory.so remember=5' >> /etc/pam.d/common-password
+echo 'Done...'
+echo '================================================================='
+echo ''
+
+# Ensure Password Hashing Algorithm is SHA-512
+echo '================================================================='
+echo 'This Script Ensures Password Hashing Algorithm is SHA-512'
+sed -i 's/obscure//' /etc/pam.d/common-password
+sed -i 's/use_authtok//' /etc/pam.d/common-password
+sed -i 's/try_first_pass//' /etc/pam.d/common-password
+echo 'Done...'
+echo '================================================================='
+echo ''
