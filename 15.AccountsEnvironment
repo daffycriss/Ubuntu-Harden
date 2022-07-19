@@ -1,0 +1,39 @@
+# 15
+
+#!/bin/bash
+
+# Ensure Minimum Days Between Password Changes is Configured and Password Expiration is 365 Days or Less
+echo '======================================================================'
+echo 'The Script Ensures Minimum Days Between Password Changes is Configured'
+echo 'and Password Expiration is 365 Days or Less'
+sed -i '/PASS_MIN_DAYS.*/c\PASS_MIN_DAYS   1' /etc/login.defs
+sed -i '/PASS_MAX_DAYS.*/c\PASS_MAX_DAYS   60' /etc/login.defs
+sed -i '/PASS_WARN_AGE.*/c\PASS_WARN_AGE   7' /etc/login.defs
+echo 'Done...'
+echo '======================================================================'
+echo ''
+
+# Ensure Inactive Password Lock is 30 Days or Less
+echo '======================================================================'
+echo 'The Script Ensures Inactive Password Lock is 30 Days or Less'
+useradd -D -f 30
+echo 'Done...'
+echo '======================================================================'
+echo ''
+
+# Ensure Default Group for the root Account is GID 0
+echo '======================================================================'
+echo 'The Script Ensures Default Group for the root Account is GID 0'
+usermod -g 0 root
+echo 'Done...'
+echo '======================================================================'
+echo ''
+
+# Ensure Access to the su Command is Restricted
+echo '======================================================================'
+echo 'The Script Access to the su Command is Restricted'
+groupadd sugroup
+echo 'auth required pam_wheel.so use_uid group=sugroup' >> /etc/pam.d/su
+echo 'Done...'
+echo '======================================================================'
+echo ''
