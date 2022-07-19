@@ -48,18 +48,14 @@ echo ''
 
 echo '================================================================='
 echo 'The Script Configures all Users' Directories'
-awk -F: '($1!~/(halt|sync|shutdown|nfsnobody)/ &&
-$7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {
-print $1 " " $6 }' /etc/passwd | while read -r user dir; do
+awk -F: "($1!~/(halt|sync|shutdown|nfsnobody)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }" /etc/passwd | while read -r user dir; do
  if [ ! -d "$dir" ]; then
  mkdir "$dir"
  chmod g-w,o-wrx "$dir"
  chown "$user" "$dir"
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/
-&& $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }' | while read -r
-user dir; do
+awk -F: "($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }" | while read -r user dir; do
  if [ ! -d "$dir" ]; then
  echo "User: \"$user\" home directory: \"$dir\" does not exist, creating
 home directory"
@@ -74,9 +70,7 @@ home directory"
  fi
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/
-&& $7!~/(\/usr)?\/bin\/false(\/)?$/) {print $6}' /etc/passwd | while read -r
-dir; do
+awk -F: "($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {print $6}" /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
  dirperm=$(stat -L -c "%A" "$dir")
  if [ "$(echo "$dirperm" | cut -c6)" != "-" ] || [ "$(echo "$dirperm" |
@@ -86,9 +80,7 @@ cut -c8)" != "-" ] || [ "$(echo "$dirperm" | cut -c9)" != "-" ] || [ "$(echo
  fi
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/
-&& $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }' | while read -r
-user dir; do
+awk -F: "($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }" | while read -r user dir; do
  if [ -d "$dir" ]; then
  for file in "$dir"/.*; do
  if [ ! -h "$file" ] && [ -f "$file" ]; then
@@ -101,25 +93,19 @@ user dir; do
  done
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/
-&& $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }' /etc/passwd | while read
--r dir; do
+awk -F: "($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }" /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
  file="$dir/.netrc"
  [ ! -h "$file" ] && [ -f "$file" ] && rm -f "$file"
  fi
 done
-awk -F: '($1!~/(root|halt|sync|shutdown)/ &&
-$7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {
-print $6 }' /etc/passwd | while read -r dir; do
+awk -F: "($1!~/(root|halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }" /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
  file="$dir/.forward"
  [ ! -h "$file" ] && [ -f "$file" ] && rm -r "$file"
  fi
 done
-awk -F: '($1!~/(root|halt|sync|shutdown)/ &&
-$7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {
-print $6 }' /etc/passwd | while read -r dir; do
+awk -F: "($1!~/(root|halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }" /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
  file="$dir/.rhosts"
  [ ! -h "$file" ] && [ -f "$file" ] && rm -r "$file"
