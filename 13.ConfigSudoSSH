@@ -1,0 +1,187 @@
+# 13
+
+#!/bin/bash
+
+# Creation of Users List for SSH Allow List
+SSHALLOWLIST=$(cat sshallowusers)
+
+# Ensure sudo is Installed and sudo Commands Use pty and Logging
+echo '=============================================================='
+echo 'The Script Ensures sudo is Installed and sudo Commands Use pty'
+echo 'and Logging'
+apt install -y sudo
+echo '' >> /etc/sudoers
+echo '# Ensures sudo Commands Use pty' >> /etc/sudoers
+echo 'Defaults use_pty' >> /etc/sudoers
+echo '' >> /etc/sudoers
+echo '# Ensures sudo Logging' >> /etc/sudoers
+echo 'Defaults logfile="/var/log/sudo.log"' >> /etc/sudoers
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH is Installed and Permissions are Configured
+echo '=================================================================='
+echo 'The Script Ensures SSH is Installed and Permissions are Configured'
+apt install -y openssh-server
+echo '...for ssh_config File'
+chown root:root /etc/ssh/sshd_config
+chmod og-rwx /etc/ssh/sshd_config
+echo '...and for SSH Private Host Key Files'
+find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \;
+find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod u-x,go-rwx {} \;
+echo '...and for SSH Public Host Key Files'
+find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod u-x,gowx {} \;
+find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;
+echo 'Done...'
+echo '=================================================================='
+echo ''
+
+# Ensure SSH Access is Limited
+echo '=============================================================='
+echo 'The Script Ensures SSH Access is Limited'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH Access is Limited' >> /etc/ssh/sshd_config
+echo 'AllowUsers $SSHALLOWLIST' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH LogLevel is Appropriate
+echo '=============================================================='
+echo 'The Script Ensures SSH LogLevel is Appropriate'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH LogLevel is Appropriate' >> /etc/ssh/sshd_config
+# Comment and Uncomment the Following Lines Depending the
+# Level of Logging is Appropriate for Your System
+echo 'LogLevel VERBOSE' >> /etc/ssh/sshd_config
+# echo 'LogLevel INFO' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH X11 Forwarding is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH X11 Forwarding is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH X11 Forwarding is Disabled' >> /etc/ssh/sshd_config
+if (sed -i "/X11Forwarding yes/c\X11Forwarding no" /etc/rsyslog.conf);then
+  echo 'X11Forwarding no' >> /etc/ssh/sshd_config
+  echo 'Done...'
+else
+  echo 'X11Forwarding no' >> /etc/ssh/sshd_config
+  echo 'Done...'
+fi
+echo '=============================================================='
+echo ''
+
+# Ensure SSH MaxAuthTries is set to 4 or Less
+echo '=============================================================='
+echo 'The Script Ensures SSH MaxAuthTries is set to 4 or Less'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH MaxAuthTries is set to 4 or Less' >> /etc/ssh/sshd_config
+echo 'MaxAuthTries 4' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH IgnoreRhosts is Enabled
+echo '=============================================================='
+echo 'The Script Ensures SSH IgnoreRhosts is Enabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH IgnoreRhosts is Enabled' >> /etc/ssh/sshd_config
+echo 'IgnoreRhosts yes' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH HostbasedAuthentication is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH HostbasedAuthentication is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH HostbasedAuthentication is Disabled' >> /etc/ssh/sshd_config
+echo 'HostbasedAuthentication no' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH root Login is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH root Login is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH root Login is Disabled' >> /etc/ssh/sshd_config
+echo 'PermitRootLogin no' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH PermitEmptyPasswords is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH PermitEmptyPasswords is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH PermitEmptyPasswords is Disabled' >> /etc/ssh/sshd_config
+echo 'PermitEmptyPasswords no' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH PermitUserEnvironment is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH PermitUserEnvironment is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH PermitUserEnvironment is Disabled' >> /etc/ssh/sshd_config
+echo 'PermitUserEnvironment no' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure Only Strong Ciphers are Used
+echo '=============================================================='
+echo 'The Script Ensures Only Strong Ciphers are Used'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures Only Strong Ciphers are Used' >> /etc/ssh/sshd_config
+echo 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure Only Strong MAC Algorithms are Used
+echo '=============================================================='
+echo 'The Script Ensures Only Strong MAC Algorithms are Used'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures Only Strong MAC Algorithms are Used' >> /etc/ssh/sshd_config
+echo 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure Only Strong Key Exchange Algorithms are Used
+echo '=============================================================='
+echo 'The Script Ensures Only Strong Key Exchange Algorithms are Used'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures Only Strong Key Exchange Algorithms are Used' >> /etc/ssh/sshd_config
+echo 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellmangroup14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffiehellman-group-exchange-sha256' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH Idle Timeout Interval is Configured
+echo '=============================================================='
+echo 'The Script Ensures SSH Idle Timeout Interval is Configured'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH Idle Timeout Interval is Configured' >> /etc/ssh/sshd_config
+echo 'ClientAliveInterval 300' >> /etc/ssh/sshd_config
+echo 'ClientAliveCountMax 3' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH LoginGraceTime is set to one Minute or Less 
+echo '=============================================================='
+echo 'The Script Ensures SSH LoginGraceTime is set to one Minute or Less'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH LoginGraceTime is set to one Minute or Less' >> /etc/ssh/sshd_config
+echo 'LoginGraceTime 45' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
