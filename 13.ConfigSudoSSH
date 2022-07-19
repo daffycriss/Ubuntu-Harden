@@ -65,7 +65,7 @@ echo '=============================================================='
 echo 'The Script Ensures SSH X11 Forwarding is Disabled'
 echo '' >> /etc/ssh/sshd_config
 echo '# Ensures SSH X11 Forwarding is Disabled' >> /etc/ssh/sshd_config
-if (sed -i "/X11Forwarding yes/c\X11Forwarding no" /etc/rsyslog.conf);then
+if (sed -i "/X11Forwarding yes/c\X11Forwarding no" /etc/ssh/sshd_config);then
   echo 'X11Forwarding no' >> /etc/ssh/sshd_config
   echo 'Done...'
 else
@@ -182,6 +182,62 @@ echo 'The Script Ensures SSH LoginGraceTime is set to one Minute or Less'
 echo '' >> /etc/ssh/sshd_config
 echo '# Ensures SSH LoginGraceTime is set to one Minute or Less' >> /etc/ssh/sshd_config
 echo 'LoginGraceTime 45' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH Warning Banner is Configured
+echo '=============================================================='
+echo 'The Script Ensures SSH Warning Banner is Configured'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH Warning Banner is Configured' >> /etc/ssh/sshd_config
+echo 'Banner /etc/issue.net' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH PAM is Enabled
+echo '=============================================================='
+echo 'The Script Ensures SSH PAM is Enabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH PAM is Enabled' >> /etc/ssh/sshd_config
+if (sed -i "/UsePAM no/c\UsePAM yes" /etc/ssh/sshd_config);then
+  echo 'Done...'
+elif (sed -i "/UsePAM yes/c\UsePAM yes" /etc/ssh/sshd_config);then
+  echo 'Done...'
+else
+  echo 'UsePAM yes' >> /etc/ssh/sshd_config
+  echo 'Done...'
+fi
+echo '=============================================================='
+echo ''
+
+# Ensure SSH AllowTcpForwarding is Disabled
+echo '=============================================================='
+echo 'The Script Ensures SSH AllowTcpForwarding is Disabled'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH AllowTcpForwarding is Disabled' >> /etc/ssh/sshd_config
+echo 'AllowTcpForwarding no' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH MaxStartups is Configured
+echo '=============================================================='
+echo 'The Script Ensures SSH MaxStartups is Configured'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH MaxStartups is Configured' >> /etc/ssh/sshd_config
+echo 'MaxStartups 10:30:60' >> /etc/ssh/sshd_config
+echo 'Done...'
+echo '=============================================================='
+echo ''
+
+# Ensure SSH MaxSessions is Limited
+echo '=============================================================='
+echo 'The Script Ensures SSH MaxSessions is Limited'
+echo '' >> /etc/ssh/sshd_config
+echo '# Ensures SSH MaxSessions is Limited' >> /etc/ssh/sshd_config
+echo 'MaxSessions 10' >> /etc/ssh/sshd_config
 echo 'Done...'
 echo '=============================================================='
 echo ''
