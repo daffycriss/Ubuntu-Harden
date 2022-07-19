@@ -8,6 +8,7 @@ echo '====================================================='
 echo 'The Script Disables IPv6'
 # If ssh is Enabled, Disabling IPv6 X11forwarding May no Longer Function as Expected.
 # In That Case, it is Recommended to add the Following Line in /etc/sshd/sshd_config File.
+# Script 13 is Also Related to That Issue
 # The Following 2 Lines Need to be Uncommented For the Script to Take Affect.
 # echo 'AddressFamily inet' >> /etc/sshd/sshd_config
 # systemctl restart sshd
