@@ -42,7 +42,7 @@ echo '=============================================================='
 echo 'The Script Ensures SSH Access is Limited'
 echo '' >> /etc/ssh/sshd_config
 echo '# Ensures SSH Access is Limited' >> /etc/ssh/sshd_config
-echo 'AllowUsers $SSHALLOWLIST' >> /etc/ssh/sshd_config
+echo "AllowUsers $SSHALLOWLIST" >> /etc/ssh/sshd_config
 echo 'Done...'
 echo '=============================================================='
 echo ''
