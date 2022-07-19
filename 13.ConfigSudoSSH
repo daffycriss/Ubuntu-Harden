@@ -199,13 +199,13 @@ echo ''
 # Ensure SSH PAM is Enabled
 echo '=============================================================='
 echo 'The Script Ensures SSH PAM is Enabled'
-echo '' >> /etc/ssh/sshd_config
-echo '# Ensures SSH PAM is Enabled' >> /etc/ssh/sshd_config
 if (sed -i "/UsePAM no/c\UsePAM yes" /etc/ssh/sshd_config);then
   echo 'Done...'
 elif (sed -i "/UsePAM yes/c\UsePAM yes" /etc/ssh/sshd_config);then
   echo 'Done...'
 else
+  echo '' >> /etc/ssh/sshd_config
+  echo '# Ensures SSH PAM is Enabled' >> /etc/ssh/sshd_config
   echo 'UsePAM yes' >> /etc/ssh/sshd_config
   echo 'Done...'
 fi
