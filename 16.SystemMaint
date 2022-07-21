@@ -56,20 +56,7 @@ awk -F: '($1!~/(halt|sync|shutdown|nfsnobody)/ && $7!~/^(\/usr)?\/sbin\/nologin(
   chown "$user" "$dir"
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }' | while read -r user dir; do
- if [ ! -d "$dir" ]; then
-  echo "User: \"$user\" home directory: \"$dir\" does not exist, creating home directory"
-  mkdir "$dir"
-  chmod g-w,o-rwx "$dir"
-  chown "$user" "$dir"
- else
-  owner=$(stat -L -c "%U" "$dir")
-  if [ "$owner" != "$user" ]; then
-   chmod g-w,o-rwx "$dir"
-   chown "$user" "$dir"
-  fi
- fi
-done
+
 awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {print $6}' /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
   dirperm=$(stat -L -c "%A" "$dir")
@@ -78,28 +65,19 @@ awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && 
   fi
  fi
 done
-awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }' | while read -r user dir; do
- if [ -d "$dir" ]; then
-  for file in "$dir"/.*; do
-   if [ ! -h "$file" ] && [ -f "$file" ]; then
-    fileperm=$(stat -L -c "%A" "$file")
-    if [ "$(echo "$fileperm" | cut -c6)" != "-" ] || [ "$(echo "$fileperm" | cut -c9)" != "-" ]; then
-     chmod go-w "$file"
-    fi
-   fi
-  done
- fi
-done
+
 awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }' /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
   file="$dir/.netrc" [ ! -h "$file" ] && [ -f "$file" ] && rm -f "$file"
  fi
 done
+
 awk -F: '($1!~/(root|halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $6 }' /etc/passwd | while read -r dir; do
  if [ -d "$dir" ]; then
   file="$dir/.forward" [ ! -h "$file" ] && [ -f "$file" ] && rm -r "$file"
  fi
 done
+
 echo 'Done...'
 echo '================================================================='
 echo ''
