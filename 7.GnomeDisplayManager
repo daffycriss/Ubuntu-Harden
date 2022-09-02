@@ -10,7 +10,7 @@
 
 # Create a Banner Message to Inform Users Accordingly
 # Additionally, the Users List is Disabled in the Login Screen
-# Is is Mandatory to Configure and Use the newmwssage File
+# Is is Mandatory to Configure and Use the newmessage File
 echo '=============================================================='
 echo 'The Script Configures Login Screen Settings to Display Message'
 echo 'Additionally, the Users List is Disabled in the Login Screen'
